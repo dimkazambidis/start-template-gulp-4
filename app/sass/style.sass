@@ -1,0 +1,119 @@
+@import "vars"
+@import "fonts"
+@import "libs"
+
+/*===============  Base  ===============*/
+
+*
+	-webkit-box-sizing: border-box
+	-moz-box-sizing: border-box
+	box-sizing: border-box
+	&:before, &:after
+		-webkit-box-sizing: border-box
+		-moz-box-sizing: border-box
+		box-sizing: border-box
+
+*::-webkit-input-placeholder
+	color: $color-placeholder
+	opacity: 1
+
+*:-moz-placeholder
+	color: $color-placeholder
+	opacity: 1
+
+*::-moz-placeholder
+	color: $color-placeholder
+	opacity: 1
+
+*:-ms-input-placeholder
+	color: $color-placeholder
+	opacity: 1
+
+html
+	font-size: $fz-base + px
+	line-height: $lh-base + rem
+
+body input:focus:required:invalid,
+body textarea:focus:required:invalid
+	color: $color-danger
+body input:required:valid,
+body textarea:required:valid
+	color: $color-success
+
+body
+	min-width: 320px
+	position: relative
+	font-family: $default-font
+	overflow-x: hidden
+	color: $color-text
+	+stripes()
+
+h1, h2, h3, h4, h5, h6
+	font-weight: 700
+	margin-bottom: 0
+
+h1
+	font-size: $fz-h1 + rem
+	line-height: $lh-base * 3 + rem
+
+h2
+	font-size: $fz-h2 + rem
+	line-height: $lh-base * 2 + rem
+
+h3
+	font-size: $fz-h3 + rem
+	line-height: $lh-base * 1.5 + rem
+
+h4
+	font-size: $fz-h4 + rem
+	line-height: $lh-base + rem
+
+h5
+	font-size: $fz-h5 + rem
+	line-height: $lh-base + rem
+
+h6
+	font-size: $fz-h6 + rem
+	line-height: $lh-base + rem
+
+p
+	margin-bottom: 1.5rem
+
+ul
+	margin-bottom: 1.5rem
+	padding-left: 1rem
+	list-style: none
+	li
+		position: relative
+		&::before
+			content: "•"
+			display: inline-block
+			position: absolute
+			color: inherit
+			left: -1em
+			font-weight: 700
+
+a
+	color: $color-accent
+	&:hover
+		color: $color-accent
+
+.site
+	display: flex
+	flex-direction: column
+	min-height: 100vh
+	padding-top: 3rem
+
+.img-responsive
+	display: block
+	max-width: 100%
+	height: auto
+
+@import "header"
+@import "layout"
+@import "footer"
+@import "animate"
+@import "media" // Всегда в конце
+
+body
+	opacity: 1

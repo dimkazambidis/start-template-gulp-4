@@ -1,0 +1,41 @@
+//===== Font family =====//
+$default-font: "Roboto", sans-serif //----- Base font
+
+//===== Colors =====//
+$color-base: steelblue //----- Base color
+$color-accent: steelblue     //----- Accent color
+$color-placeholder: silver   //----- Placeholders color
+$color-success: green        //----- Success color
+$color-danger: red           //----- Danger color
+$color-text: black           //----- Standart text color
+
+//===== Fonts sizes =====//
+$fz-base: 16       //----- Base font size (px)
+$lh-base: 1.5      //----- Base line height
+$scale-base: 1.333 //----- Scale count (Typical scale: http://type-scale.com/)
+
+//===== For vertical rhythm =====//
+=stripes()
+	background: linear-gradient(to top, #f0a2c4 10%, rgba(240, 162, 196, 0) 10%)
+	background-size: 100% $lh-base / 2 + rem
+
+//===== Heading sizes =====//
+$fz-h6: 1 / $scale-base      //----- Font size h6
+$fz-h5: 1                    //----- Font size h5
+$fz-h4: $scale-base          //----- Font size h4
+$fz-h3: $scale-base * $fz-h4 //----- Font size h3
+$fz-h2: $scale-base * $fz-h3 //----- Font size h2
+$fz-h1: $scale-base * $fz-h2 //----- Font size h1
+
+=fz($fz)
+	font-size: $fz/$fz-base + rem
+
+=lh($lh)
+	line-height: $lh/$fz-base + rem
+
+//===== Customization Bootstrap vars from "app/libs/bootstrap/scss/_variables.scss" =====//
+$grid-gutter-width: 32px //----- Gutters widths
+$grid-columns: 12        //----- Columns count
+
+$grid-breakpoints: (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1230px)      //----- Breakpoints
+$container-max-widths: (sm: 540px, md: 720px, lg: 960px, xl: 1200px)!default //----- Containers widths
