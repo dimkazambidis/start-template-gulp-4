@@ -41,8 +41,8 @@ gulp.task('js', function() {
 	])
 	.pipe(concat('scripts.js'))
 	//.pipe(uglify())
-	.pipe(gulp.dest('app/js'));
-	//.pipe(browserSync.stream());
+	.pipe(gulp.dest('app/js'))
+	.pipe(browserSync.stream());
 });
 
 /***************************

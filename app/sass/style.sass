@@ -31,7 +31,7 @@
 
 html
 	font-size: $fz-base + px
-	line-height: $lh-base + rem
+	line-height: $lh-base
 
 body input:focus:required:invalid,
 body textarea:focus:required:invalid
@@ -46,42 +46,37 @@ body
 	font-family: $default-font
 	overflow-x: hidden
 	color: $color-text
-	+stripes()
+	font-size: $fz-base + px
+	line-height: $lh-base
 
 h1, h2, h3, h4, h5, h6
 	font-weight: 700
 	margin-bottom: 0
 
 h1
-	font-size: $fz-h1 + rem
-	line-height: $lh-base * 3 + rem
+	+fz(32)
 
 h2
-	font-size: $fz-h2 + rem
-	line-height: $lh-base * 2 + rem
+	+fz(24)
 
 h3
-	font-size: $fz-h3 + rem
-	line-height: $lh-base * 1.5 + rem
+	+fz(18)
 
 h4
-	font-size: $fz-h4 + rem
-	line-height: $lh-base + rem
+	+fz(16)
 
 h5
-	font-size: $fz-h5 + rem
-	line-height: $lh-base + rem
+	+fz(14)
 
 h6
-	font-size: $fz-h6 + rem
-	line-height: $lh-base + rem
+	+fz(12)
 
 p
-	margin-bottom: 1.5rem
+	margin-bottom: 1.5em
 
 ul
-	margin-bottom: 1.5rem
-	padding-left: 1rem
+	margin-bottom: 1.5em
+	padding-left: 1em
 	list-style: none
 	li
 		position: relative
@@ -92,16 +87,23 @@ ul
 			color: inherit
 			left: -1em
 			font-weight: 700
+	&.unstyled
+		margin: 0
+		padding: 0
+		li
+			&::before
+				content: none
 
 a
-	color: $color-accent
+	color: $color-link
 	&:hover
-		color: $color-accent
+		color: darken($color-link, 10%)
 
 .site
 	display: flex
 	flex-direction: column
 	min-height: 100vh
+	overflow: hidden
 	padding-top: 3rem
 
 .img-responsive
