@@ -2,7 +2,7 @@
   Vars
 ***************************/
 var gulp         = require('gulp'),
-	util         = require('gulp-util'),
+	//util         = require('gulp-util'),
 	sass         = require('gulp-sass'),
 	browserSync  = require('browser-sync'),
 	concat       = require('gulp-concat'),
@@ -11,10 +11,6 @@ var gulp         = require('gulp'),
 	rename       = require('gulp-rename'),
 	del          = require('del'),
 	imagemin     = require('gulp-imagemin'),
-	// jpgmin       = require('imagemin-jpegoptim'),
-	// pngmin       = require('imagemin-pngquant'),
-	// jpegtran     = require('imagemin-jpegtran'),
-	// optipng      = require('imagemin-optipng'),
 	cache        = require('gulp-cache'),
 	autoprefixer = require('gulp-autoprefixer'),
 	include      = require('gulp-file-include');
@@ -54,9 +50,7 @@ gulp.task('sass', function() {
 		outputStyle: 'expanded'
 	}).on('error', sass.logError))
 	//.pipe(rename({suffix: '.min'}))
-	.pipe(autoprefixer({
-		browsers: ['last 15 versions']
-	}))
+	.pipe(autoprefixer())
 	//.pipe(cleanCSS())
 	.pipe(gulp.dest('app/css'))
 	.pipe(browserSync.reload({stream: true}));
@@ -113,7 +107,10 @@ gulp.task('prebuild', async function() {
 
 	var buildFiles = gulp.src([
 		'app/*.html',
-		'app/*'
+		'app/*',
+		'!app/include',
+		'!app/libs',
+		'!app/sass'
 		]).pipe(gulp.dest('dist'));
 
 	var buildCss = gulp.src([
