@@ -24,11 +24,11 @@
 ## Использование:
 __Внимание!__ У вас должен быть установлен [Node.js](https://nodejs.org/en/), а затем глобально __gulp__ ( в командной строке - "__npm i gulp -g__")
 
-1. [Скачать](https://github.com/dimkazambidis/start-template-gulp-4/archive/master.zip) и распаковать шаблон
+__1.__ [Скачать](https://github.com/dimkazambidis/start-template-gulp-4/archive/master.zip) и распаковать шаблон
 
-2. Установить требуемые пакеты Node (в папке в командной строке - "__npm i__")
+__2.__ Установить требуемые пакеты Node (в папке в командной строке - "__npm i__")
 
-3. Запустиить (в папке в командной строке - "__gulp__")
+__3.__ Запустиить (в папке в командной строке - "__gulp__")
 
 ## Gulp tasks:
 __gulp__ ('default') - task для разработки ('__include__', '__sass__', '__js__', '__browser-sync__', '__watch__')  
