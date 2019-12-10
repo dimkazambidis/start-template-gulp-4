@@ -104,7 +104,20 @@ __Внимание!__ Верстка производится исключите
 ## Установка:
 1. Поместить папку с библиотекой в __app/libs__, или через __bower__ (например, в коммандной строке "__bower i slick-carousel__")
 
-2. Скрипты подключить в __gulpfile.js__ (__task__ - "__js__", в __src__ добавив путь до нужного файла)  
+2. Скрипты подключить в __gulpfile.js__ (__task__ - "__js__", в __src__ добавив путь до нужного файла)
+```JS
+gulp.task('js', function() {
+	return gulp.src([
+		'app/libs/jquery/dist/jquery.min.js',
+		'app/libs/imagesloaded/imagesloaded.pkgd.min.js',
+		'app/js/common.js'
+	])
+	.pipe(concat('scripts.js'))
+	//.pipe(uglify())
+	.pipe(gulp.dest('app/js'))
+	.pipe(browserSync.stream());
+});
+```
 __Внимание!__ Перезапустите Gulp
 
 3. Стили подключить в __app/sass/\_libs.sass__
