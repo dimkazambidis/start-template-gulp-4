@@ -107,15 +107,15 @@ __1.__ Поместить папку с библиотекой в __app/libs__, 
 __2.__ Скрипты подключить в __gulpfile.js__ (__task__ - "__js__", в __src__ добавив путь до нужного файла)
 ```JS
 gulp.task('js', function() {
-	return gulp.src([
-		'app/libs/jquery/dist/jquery.min.js',
-		'app/libs/imagesloaded/imagesloaded.pkgd.min.js',
-		'app/js/common.js'
-	])
-	.pipe(concat('scripts.js'))
-	//.pipe(uglify())
-	.pipe(gulp.dest('app/js'))
-	.pipe(browserSync.stream());
+  return gulp.src([
+    'app/libs/jquery/dist/jquery.min.js',
+    'app/libs/imagesloaded/imagesloaded.pkgd.min.js',
+    'app/js/common.js'
+  ])
+  .pipe(concat('scripts.js'))
+  //.pipe(uglify())
+  .pipe(gulp.dest('app/js'))
+  .pipe(browserSync.stream());
 });
 ```
 __Внимание!__ Перезапустите Gulp
