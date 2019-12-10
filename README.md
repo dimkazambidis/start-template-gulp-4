@@ -21,6 +21,13 @@
 - gulp-autoprefixer
 - gulp-file-include
 
+## Использование:
+1. [Скачать](https://github.com/dimkazambidis/start-template-gulp-4/archive/master.zip) и распаковать шаблон
+
+2. Установить требуемые пакеты Node (в папке в командной строке - "__npm i__")
+
+3. Запустиить (в папке в командной строке - "__gulp__")
+
 ## Gulp tasks:
 __gulp__ ('default') - task для разработки ('__include__', '__sass__', '__js__', '__browser-sync__', '__watch__')  
 __build__ - task для сборки в папку dist ('__removedist__', '__imagemin__', '__sass__', '__js__', '__prebuild__')
