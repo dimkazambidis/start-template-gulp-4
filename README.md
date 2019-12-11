@@ -31,8 +31,11 @@ __2.__ Установить требуемые пакеты Node (в папке 
 __3.__ Запустиить (в папке в командной строке - "__gulp__")
 
 ## Gulp tasks:
-__gulp__ - task __'default'__ для разработки ('__include__', '__sass__', '__js__', '__browser-sync__', '__watch__')  
-__gulp build__ - task __'build'__ для сборки в папку dist ('__removedist__', '__imagemin__', '__sass__', '__js__', '__prebuild__')
+Расположение: __gulpfile.js__
+
+### Команды
+__gulp__ - запускает task __'default'__ для разработки ('__include__', '__sass__', '__js__', '__browser-sync__', '__watch__')  
+__gulp build__ - запускает task __'build'__ для сборки в папку dist ('__removedist__', '__imagemin__', '__sass__', '__js__', '__prebuild__')
 
 ## Переменные:
 Расположение: __app/sass/\_vars.sass__
