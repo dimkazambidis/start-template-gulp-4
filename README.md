@@ -41,7 +41,7 @@ __gulp build__ - запускает task __'build'__ для сборки в па
 Расположение: __app/sass/\_vars.sass__
 
 ### Шрифты
-__$font-default__ - Шрифт по умолчанию
+__$font-default__ - Шрифт по умолчанию (определяется в __app/sass/\_fonts.sass__)
 
 ### Цвет  
 __$color-base__ - Основной цвет  
