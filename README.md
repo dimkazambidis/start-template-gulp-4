@@ -22,7 +22,7 @@
 - gulp-file-include
 
 ## Использование:
-__Внимание!__ У вас должен быть установлен [Node.js](https://nodejs.org/en/), а затем глобально __gulp__ ( в командной строке - "__npm i gulp -g__")
+__Внимание!__ У вас должен быть установлен [Node.js](https://nodejs.org/en/), а затем глобально __gulp__ ( в командной строке - "__gulp -g__")
 
 __1.__ [Скачать](https://github.com/dimkazambidis/start-template-gulp-4/archive/master.zip) и распаковать шаблон
 
