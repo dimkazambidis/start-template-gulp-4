@@ -1,7 +1,7 @@
 # Gulp 4 HTML5 шаблон для верстки
 Автор: [dimkazambidis](https://github.com/dimkazambidis)
 ***
->Огромное спасибо [WebDesign Master](http://webdesign-master.ru), именно на базе его шаблона был создан этот!
+>Минификация js и sass, оптимизация изображений, использование webp.
 ---
 Используется __Gulp v4__  
 Сетка основана на __Bootstrap v4__ (настраивается: app/sass/_vars.sass см. "Настройки сетки")  
@@ -9,14 +9,17 @@
 Используемый препроцессор __SASS__
 
 ## Исспользуемые пакеты:
-- gulp-sass
 - browser-sync
+- gulp-sass
 - gulp-concat
 - gulp-uglify
+- gulp-babel
 - gulp-clean-css
 - gulp-rename
 - del
 - gulp-imagemin
+- gulp-webp
+- gulp-webp-html
 - gulp-cache
 - gulp-autoprefixer
 - gulp-file-include
@@ -34,8 +37,11 @@ __3.__ Запустиить (в папке в командной строке - 
 Расположение: __gulpfile.js__
 
 ### Команды
-__gulp__ - запускает task __'default'__ для разработки ('__include__', '__sass__', '__js__', '__browser-sync__', '__watch__')  
-__gulp build__ - запускает task __'build'__ для сборки в папку dist ('__removedist__', '__imagemin__', '__sass__', '__js__', '__prebuild__')
+__gulp__ - запускает task по умолчанию __'default'__ для разработки (__clean__, __include__, __style__, __javascript__, __images__, __fonts__, __browsersync__, __watch__). Сборка происходит в папку dist.
+
+__gulp build__ - запускает task __'build'__ для сборки в папку dist со сбросом кэша (__clearcache__, __clean__, __include__, __style__, __javascript__, __images__, __fonts__)
+
+__gulp clearcache__ - запускает task __'clearcache'__ для отчистки кэша. В данный момент кэшируется только минификация изображений.
 
 ## Переменные:
 Расположение: __app/sass/\_vars.sass__
