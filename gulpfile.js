@@ -113,9 +113,9 @@ function sassFunc() {
 }
 
 /***************************
-  Include
+  Html
 ***************************/
-function incFunc() {
+function htmlFunc() {
 	return gulp.src(path.src.html)
 	.pipe(include({
 		prefix: '@',
@@ -177,7 +177,8 @@ function clearcacheFunc() {
 }
 
 /***************************
-  Default and Build
+  Commands
 ***************************/
-exports.default = gulp.series(cleanFunc, gulp.parallel(incFunc, sassFunc, jsFunc, imgFunc, fontsFunc, browserSyncFunc, watchFunc)),
-exports.build   = gulp.series(clearcacheFunc, cleanFunc, gulp.parallel(incFunc, sassFunc, jsFunc, imgFunc, fontsFunc));
+exports.default = gulp.series(cleanFunc, gulp.parallel(htmlFunc, sassFunc, jsFunc, imgFunc, fontsFunc, browserSyncFunc, watchFunc));
+exports.build = gulp.series(clearcacheFunc, cleanFunc, gulp.parallel(htmlFunc, sassFunc, jsFunc, imgFunc, fontsFunc));
+exports.clearcache = clearcacheFunc;
