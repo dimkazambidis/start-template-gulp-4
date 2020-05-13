@@ -24,6 +24,17 @@
 - gulp-autoprefixer
 - gulp-file-include
 
+## Структура:
+
+###Корень проекта
+Здесь находятся все необходимые файлы для управления сборкой
+- __gulpfile.js__ - команды и задач Gulp
+- __package.json__ - список и настройки пакетов npm
+- __.bowerrc__ - настройки менеджера пакетов Bower (подключение библиотек)
+- __nodemodules__ - какталог с необходимыми пакетами
+- __src__ - каталог с исходным кодом (именно здесь и производится основная работа)
+- __dist__ - каталог для выгрузки готовой верстки
+
 ## Использование:
 __Внимание!__ У вас должен быть установлен [Node.js](https://nodejs.org/en/), а затем глобально __gulp__ ( в командной строке - "__gulp -g__")
 
@@ -39,17 +50,36 @@ __4.__ Запустиить (в папке в командной строке - 
 Расположение: __gulpfile.js__
 
 ### Команды
-__gulp__ - запускает task по умолчанию __'default'__ для разработки (__clean__, __include__, __style__, __javascript__, __images__, __fonts__, __browsersync__, __watch__). Сборка происходит в папку dist.
+__gulp__ - запускает команду по умолчанию __'default'__ для разработки (__cleanFunc__, __htmlFunc__, __sassFunc__, __jsFunc__, __imgFunc__, __fontsFunc__, __browserSyncFunc__, __watchFunc__). Сборка происходит в папку dist.
 
-__gulp build__ - запускает task __'build'__ для сборки в папку dist со сбросом кэша (__clearcache__, __clean__, __include__, __style__, __javascript__, __images__, __fonts__)
+__gulp build__ - запускает команду __'build'__ для сборки в папку dist со сбросом кэша (__clearcacheFunc__, __cleanFunc__, __htmlFunc__, __sassFunc__, __jsFunc__, __imgFunc__, __fontsFunc__)
 
-__gulp clearcache__ - запускает task __'clearcache'__ для отчистки кэша. В данный момент кэшируется только минификация изображений.
+__gulp clearcache__ - запускает команду __'clearcache'__ для отчистки кэша (__'clearcacheFunc'__). В данный момент кэшируется только минификация изображений.
+
+### Задачи
+__browserSyncFunc__ - автоперезагрузка браузера
+
+__jsFunc__ - обрабатывает и собирает файлы javascript по пути __src/js__. (обрабатывает babel пользовательские скрипты, объеденяет со скриптами библиотек, создает полный и минифицированный файлы скриптов __scripts.js__ и __scripts.min.js__) (__jsUseFunc__, __jsLibFunc__)
+
+__sassFunc__ - обрабатывает и собирает файлы sass по пути __src/sass__ (проставляет префиксы, создает полный и минифицированный файлы стилей __style.css__ и __style.min.css__)
+
+__htmlFunc__ - обрабатывает и собирает файлы html (автоматичеси подключает webp формат изображений ([gulp-webp-html](https://www.npmjs.com/package/gulp-webp-html))
+
+__imgFunc__ - обрабатывает файлы изображений (оптимизирует изобрежения, добавляет дубликат в формате webp)
+
+__imgFonts__ - обрабатывает файлы шрифтов
+
+__watchFunc__ - отслеживает изменения
+
+__cleanFunc__ - удаляет директорию __dist__
+
+__clearcacheFunc__ - сбрасывает кэш пакета __'gulp-cache'__
 
 ## Переменные:
-Расположение: __app/sass/\_vars.sass__
+Расположение: __src/sass/\_vars.sass__
 
 ### Шрифты
-__$font-default__ - Шрифт по умолчанию (определяется в __app/sass/\_fonts.sass__)
+__$font-default__ - Шрифт по умолчанию (определяется в __src/sass/\_fonts.sass__)
 
 ### Цвет  
 __$color-base__ - Основной цвет  
@@ -75,60 +105,67 @@ __$grid-breakpoints__ - контрольные точки
 __$container-max-widths__ - ширина контейнера
 
 ## Media запросы
-Расположение: __app/sass/\_media.sass__
+Расположение: __src/sass/\_media.sass__
 
 ## Анимации
-Расположение: __app/sass/\_animate.sass__
+Расположение: __src/sass/\_animate.sass__
 
 ## Подключение шрифтов
-Расположение: __app/sass/\_fonts.sass__
+Расположение: __src/sass/\_fonts.sass__
 
 ## Стили библиотек
 Расположение: __app/sass/\_libs.sass__
 
 ## Стили header
-Расположение: __app/sass/\_header.sass__
+Расположение: __src/sass/\_header.sass__
 
 ## Стили footer
-Расположение: __app/sass/\_footer.sass__
+Расположение: __src/sass/\_footer.sass__
 
 ## Стили контента (при желании можно разбить на составляющие)
-Расположение: __app/sass/\_layout.sass__
+Расположение: __src/sass/\_layout.sass__
 
 ## Основной файл стилей (сброс стилей, базовые стили, сборка в один файл)
-Расположение: __app/sass/style.sass__
+Расположение: __src/sass/style.sass__
 
 ## Html
-Расположение: __app/include__  
-__Внимание!__ Верстка производится исключительно в этой папке __app/include__ (не в корне __app__), иначе при изменении любого файла в app/include в корне (__app__) файл перезапишется, и отобразятся, только изменения файлов в папке "include"
+Расположение: __src__
 
-## Подключаемые части (header, footer, или например карточка товара)
-Расположение: __app/include/parts__  
+## Подключаемые части html (header, footer, или например карточка товара)
+Расположение: __src/parts__  
 Подключение: в нужном месте __@include('parts/название\_файла.html')__
 
 ## Javascript
-Расположение: __app/js/common.js__
+Расположение: __src/js/common.js__
+
+## Подключаемые части js
+Расположение: __src/js/parts__  
+Подключение: в нужном месте __@include('parts/название\_файла.js')__
 
 ## Библиотеки и плагины
-Расположение: __app/libs__
+Расположение: __src/libs__
 
 ### Установка:
 __1.__ Поместить папку с библиотекой в __app/libs__, или через __bower__ (например, в коммандной строке "__bower i slick-carousel__")
 
-__2.__ Скрипты подключить в __gulpfile.js__ (__task__ - "__js__", в __src__ добавив путь до нужного файла)
+__2.__ Скрипты подключить в __gulpfile.js__ (Задача __jsLibFunc__, в __src__ добавив путь до нужного файла)
 ```JS
-gulp.task('js', function() {
-  return gulp.src([
-    'app/libs/jquery/dist/jquery.min.js',
-    'app/libs/imagesloaded/imagesloaded.pkgd.min.js',
-    'app/js/common.js'
-  ])
-  .pipe(concat('scripts.js'))
-  //.pipe(uglify())
-  .pipe(gulp.dest('app/js'))
-  .pipe(browserSync.stream());
-});
+function jsLibFunc() {
+	return gulp.src([
+		srcFolder + '/libs/jquery/dist/jquery.min.js',
+		srcFolder + '/libs/imagesloaded/imagesloaded.pkgd.min.js',
+		distFolder + '/js/scripts.js'
+	])
+	.pipe(concat('scripts.js'))
+	.pipe(gulp.dest(path.dist.js))
+	.pipe(rename({
+		suffix: '.min'
+	}))
+	.pipe(uglify())
+	.pipe(gulp.dest(path.dist.js))
+	.pipe(browserSync.stream());
+}
 ```
 __Внимание!__ Перезапустите Gulp
 
-__3.__ Стили подключить в __app/sass/\_libs.sass__
+__3.__ Стили подключить в __src/sass/\_libs.sass__
