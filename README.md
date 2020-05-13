@@ -1,7 +1,7 @@
 # Gulp 4 HTML5 шаблон для верстки
 Автор: [dimkazambidis](https://github.com/dimkazambidis)
 ***
->Минификация js и sass, оптимизация изображений, использование webp.
+>Удобный и простой в настройке шаблон __Gulp__ для быстрой и качественной верстки сайта
 ---
 Используется __Gulp v4__  
 Сетка основана на __Bootstrap v4__ (настраивается: app/sass/_vars.sass см. "Настройки сетки")  
@@ -62,7 +62,7 @@ __3.__ Запустиить (в папке в командной строке - 
 ### Команды
 __gulp__ - запускает команду по умолчанию __'default'__ для разработки (__cleanFunc__, __htmlFunc__, __sassFunc__, __jsFunc__, __imgFunc__, __fontsFunc__, __browserSyncFunc__, __watchFunc__). Сборка происходит в папку dist.
 
-__gulp build__ - запускает команду __'build'__ для сборки в папку dist со сбросом кэша (__clearcacheFunc__, __cleanFunc__, __htmlFunc__, __sassFunc__, __jsFunc__, __imgFunc__, __fontsFunc__)
+__gulp build__ - запускает команду __'build'__ для сборки в папку dist со сбросом кэша (__clearcacheFunc__, __cleanFunc__, __htmlFunc__, __sassFunc__, __jsFunc__, __imgFunc__, __fontsFunc__). Не запускает сам Gulp. Нужен для быстрой пересборки.
 
 __gulp clearcache__ - запускает команду __'clearcache'__ для отчистки кэша (__'clearcacheFunc'__). В данный момент кэшируется только минификация изображений.
 
