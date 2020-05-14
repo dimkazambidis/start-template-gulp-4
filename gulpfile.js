@@ -3,10 +3,10 @@
 /***************************
   Vars
 ***************************/
-let srcFolder  = 'src',
+const srcFolder  = 'src',
     distFolder = 'dist';
 
-let path = {
+const path = {
     src: {
         html: srcFolder + '/*.html',
         inc: srcFolder + '/**/*.html',
@@ -24,7 +24,7 @@ let path = {
     }
 }
 
-let gulp         = require('gulp'),
+const gulp       = require('gulp'),
     //util         = require('gulp-util'),
     browserSync  = require('browser-sync').create(),
     sass         = require('gulp-sass'),
