@@ -30,10 +30,10 @@
 Здесь находятся все необходимые файлы для управления сборкой
 - __gulpfile.js__ - команды и задачи Gulp
 - __package.json__ - список и настройки пакетов npm
-- __.bowerrc__ - настройки менеджера пакетов Bower (подключение библиотек)
-- __node_modules__ - какталог с необходимыми пакетами
+- __.bowerrc__ - настройки менеджера библиотек Bower (подключение библиотек, нпример jQuery)
+- __node_modules__ - какталог с необходимыми пакетами npm
 - __src__ - каталог с исходным кодом (именно здесь и производится основная работа)
-- __dist__ - каталог для выгрузки готовой верстки
+- __dist__ - каталог для готовой верстки
 
 ### src
 Здесь распологаются все файлы, из которых и будет собираться проект
@@ -62,20 +62,20 @@ __3.__ Запустиить (в папке в командной строке - 
 ### Команды
 __gulp__ - запускает команду по умолчанию __'default'__ для разработки (__cleanFunc__, __htmlFunc__, __sassFunc__, __jsFunc__, __imgFunc__, __fontsFunc__, __browserSyncFunc__, __watchFunc__). Сборка происходит в папку dist.
 
-__gulp build__ - запускает команду __'build'__ для сборки в папку dist со сбросом кэша (__clearcacheFunc__, __cleanFunc__, __htmlFunc__, __sassFunc__, __jsFunc__, __imgFunc__, __fontsFunc__). Не запускает сам Gulp. Нужен для быстрой пересборки.
+__gulp build__ - запускает команду __'build'__ для сборки в папку dist со сбросом кэша (__clearcacheFunc__, __cleanFunc__, __htmlFunc__, __sassFunc__, __jsFunc__, __imgFunc__, __fontsFunc__). Не запускает сам Gulp. Нужен для быстрой пересборки в каталог __dist__.
 
 __gulp clearcache__ - запускает команду __'clearcache'__ для отчистки кэша (__'clearcacheFunc'__). В данный момент кэшируется только минификация изображений.
 
 ### Задачи
 __browserSyncFunc__ - автоперезагрузка браузера
 
-__jsFunc__ - обрабатывает и собирает файлы javascript по пути __src/js__. (обрабатывает babel пользовательские скрипты, объеденяет со скриптами библиотек, создает полный и минифицированный файлы скриптов __scripts.js__ и __scripts.min.js__) (__jsUseFunc__, __jsLibFunc__)
+__jsFunc__ - обрабатывает и собирает файлы javascript по пути __src/js__. (обрабатывает __babel__ пользовательские скрипты, объеденяет со скриптами библиотек, создает полный и минифицированный файлы скриптов __scripts.js__ и __scripts.min.js__) (__jsUseFunc__, __jsLibFunc__)
 
 __sassFunc__ - обрабатывает и собирает файлы sass по пути __src/sass__ (проставляет префиксы, создает полный и минифицированный файлы стилей __style.css__ и __style.min.css__)
 
-__htmlFunc__ - обрабатывает и собирает файлы html (автоматичеси подключает webp формат изображений ([gulp-webp-html](https://www.npmjs.com/package/gulp-webp-html))
+__htmlFunc__ - обрабатывает и собирает файлы html
 
-__imgFunc__ - обрабатывает файлы изображений (оптимизирует изобрежения, добавляет дубликат в формате webp)
+__imgFunc__ - обрабатывает файлы изображений (оптимизирует изобрежения)
 
 __imgFonts__ - обрабатывает файлы шрифтов
 
@@ -114,6 +114,40 @@ __$grid-columns__ - количество колонок
 __$grid-breakpoints__ - контрольные точки  
 __$container-max-widths__ - ширина контейнера
 
+## Миксины
+Расположение: __src/sass/\_mixins__
+
+### Шрифты
+Расположение: __src/sass/\_mixins/\_font-face.sass__
+__+font-face(Family, Path, Weight, Style)__ - Подключение шрифтов, где __Family__ - семейство, __Path__ - путь до файла (без расширения), __Weight__ - толщина начертания, __Style__ - стиль шрифта.
+
+### Медиазапросы
+Расположение: __src/sass/\_mixins/\_media_queries.sass__
+__+mq-mf(Breakpoint)__ - Mobile First (min-width), где __Breakpoint__ - контрольная точка (минимальная ширина в пиксилях), доступны __bootstrap__ значния (__xl__, __lg__, __md__, __sm__)
+Например:
+```SASS
++mq-mf(xl)
+	background-color: red
+```
+__+mq-df(Breakpoint)__ - Desktop First (max-width), где __Breakpoint__ - контрольная точка (максимальная ширина в пиксилях), доступны __bootstrap__ значния (__xl__, __lg__, __md__, __sm__)
+Например:
+```SASS
++mq-df(xl)
+	background-color: red
+```
+__+mqh-mf(BreakpointWidth, BreakpointHeight)__ - Mobile First (min-width, min-height), где __BreakpointWidth__ - контрольная точка по ширине (минимальная ширина в пиксилях), доступны __bootstrap__ значния (__xl__, __lg__, __md__, __sm__), __BreakpointHeight__ - контрольная точка по высоте
+Например:
+```SASS
++mqh-mf(xl, 500px)
+	background-color: red
+```
+__+mqh-df(BreakpointWidth, BreakpointHeight)__ - Desktop First (max-width, max-height), где __BreakpointWidth__ - контрольная точка по ширине (максимальная ширина в пиксилях), доступны __bootstrap__ значния (__xl__, __lg__, __md__, __sm__), __BreakpointHeight__ - контрольная точка по высоте
+Например:
+```SASS
++mqh-df(xl, 500px)
+	background-color: red
+```
+
 ## Media запросы
 Расположение: __src/sass/\_media.sass__
 
@@ -135,7 +169,10 @@ __$container-max-widths__ - ширина контейнера
 ## Стили контента (при желании можно разбить на составляющие)
 Расположение: __src/sass/\_layout.sass__
 
-## Основной файл стилей (сброс стилей, базовые стили, сборка в один файл)
+## Базовые стили
+Расположение: __src/sass/\_base.sass__
+
+## Основной файл стилей (сборка в один файл)
 Расположение: __src/sass/style.sass__
 
 ## Html

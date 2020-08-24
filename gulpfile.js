@@ -25,7 +25,7 @@ const path = {
 }
 
 const gulp       = require('gulp'),
-    //util         = require('gulp-util'),
+    // util         = require('gulp-util'),
     browserSync  = require('browser-sync').create(),
     sass         = require('gulp-sass'),
     concat       = require('gulp-concat'),
@@ -35,8 +35,6 @@ const gulp       = require('gulp'),
     rename       = require('gulp-rename'),
     del          = require('del'),
     imagemin     = require('gulp-imagemin'),
-    webp         = require('gulp-webp'),
-    webpHtml     = require('gulp-webp-html'),
     cache        = require('gulp-cache'),
     autoprefixer = require('gulp-autoprefixer'),
     include      = require('gulp-file-include');
@@ -104,6 +102,7 @@ function sassFunc() {
         overrideBrowserslist: ['last 21 versions']
     }))
     .pipe(gulp.dest(path.dist.css))
+    .pipe(gulp.src(path.src.sass))
     .pipe(rename({
         suffix: '.min'
     }))
@@ -121,7 +120,6 @@ function htmlFunc() {
         prefix: '@',
         basepath: '@file'
     }))
-    .pipe(webpHtml())
     .pipe(gulp.dest(distFolder + '/'))
     .pipe(browserSync.stream());
 }
@@ -131,11 +129,6 @@ function htmlFunc() {
 ***************************/
 function imgFunc() {
     return gulp.src(path.src.img)
-    .pipe(webp({
-        quality: 70
-    }))
-    .pipe(gulp.dest(path.dist.img))
-    .pipe(gulp.src(path.src.img))
     .pipe(cache(imagemin({
         progressive: true,
         svgoPlugins: [{removeViewBox: false}],
