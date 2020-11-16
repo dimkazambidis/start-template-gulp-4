@@ -25,10 +25,13 @@ const path = {
 }
 
 const gulp       = require('gulp'),
-    // util         = require('gulp-util'),
     browserSync  = require('browser-sync').create(),
     sass         = require('gulp-sass'),
     concat       = require('gulp-concat'),
+    mqpacker     = require('css-mquery-packer'),
+    sortCSSmq    = require('sort-css-media-queries'),
+    postcss      = require('gulp-postcss'),
+    sourcemaps   = require('gulp-sourcemaps'),
     uglify       = require('gulp-uglify'), //For JS
     babel        = require('gulp-babel'),
     cleanCSS     = require('gulp-clean-css'),
@@ -36,8 +39,9 @@ const gulp       = require('gulp'),
     del          = require('del'),
     imagemin     = require('gulp-imagemin'),
     cache        = require('gulp-cache'),
-    autoprefixer = require('gulp-autoprefixer'),
-    include      = require('gulp-file-include');
+    autoprefixer = require('autoprefixer'),
+    include      = require('gulp-file-include'),
+    gulpif       = require('gulp-if');
 
 /***************************
   Browser Sync
@@ -58,33 +62,31 @@ function browserSyncFunc() {
 ***************************/
 function jsUseFunc() {
     return gulp.src(srcFolder + '/js/common.js')
-    .pipe(include({
-        prefix: '@',
-        basepath: '@file'
-    }))
-    .pipe(rename({
-        basename: 'scripts'
-    }))
-    .pipe(babel({
-        presets: ['@babel/env']
-    }))
-    .pipe(gulp.dest(path.dist.js))
+        .pipe(sourcemaps.init())
+            .pipe(babel({
+                presets: ['@babel/env']
+            }))
+            .pipe(rename({
+                basename: 'scripts'
+            }))
+        .pipe(sourcemaps.write('/'))
+        .pipe(gulp.dest(path.dist.js))
 }
 
 function jsLibFunc() {
     return gulp.src([
-        srcFolder + '/libs/jquery/dist/jquery.min.js',
-        srcFolder + '/libs/imagesloaded/imagesloaded.pkgd.min.js',
-        distFolder + '/js/scripts.js'
-    ])
-    .pipe(concat('scripts.js'))
-    .pipe(gulp.dest(path.dist.js))
-    .pipe(rename({
-        suffix: '.min'
-    }))
-    .pipe(uglify())
-    .pipe(gulp.dest(path.dist.js))
-    .pipe(browserSync.stream());
+            srcFolder + '/libs/jquery/dist/jquery.min.js',
+            srcFolder + '/libs/imagesloaded/imagesloaded.pkgd.min.js',
+            distFolder + '/js/scripts.js'
+        ])
+        .pipe(concat('scripts.js'))
+        .pipe(gulp.dest(path.dist.js))
+        .pipe(rename({
+            suffix: '.min'
+        }))
+        .pipe(uglify())
+        .pipe(gulp.dest(path.dist.js))
+        .pipe(browserSync.stream());
 }
 
 let jsFunc = gulp.series(jsUseFunc, jsLibFunc);
@@ -92,23 +94,32 @@ let jsFunc = gulp.series(jsUseFunc, jsLibFunc);
 /***************************
   Sass
 ***************************/
+
+const pluginsPostCss = [
+    autoprefixer({
+        overrideBrowserslist: ['last 21 versions']
+    }),
+    mqpacker({
+        sort: sortCSSmq
+    })
+    //mqpacker()
+];
+
 function sassFunc() {
     return gulp.src(path.src.sass)
-    .pipe(sass({
-        outputStyle: 'expanded'
-    })
-    .on('error', sass.logError))
-    .pipe(autoprefixer({
-        overrideBrowserslist: ['last 21 versions']
-    }))
-    .pipe(gulp.dest(path.dist.css))
-    .pipe(gulp.src(path.src.sass))
-    .pipe(rename({
-        suffix: '.min'
-    }))
-    .pipe(cleanCSS())
-    .pipe(gulp.dest(path.dist.css))
-    .pipe(browserSync.stream());
+        .pipe(sourcemaps.init())
+            .pipe(sass({
+                outputStyle: 'expanded'
+            })
+            .on('error', sass.logError))
+            .pipe(postcss(pluginsPostCss))
+            .pipe(rename({
+                suffix: '.min'
+            }))
+            .pipe(cleanCSS())
+        .pipe(sourcemaps.write('/'))
+        .pipe(gulp.dest(path.dist.css))
+        .pipe(browserSync.stream());
 }
 
 /***************************
@@ -116,12 +127,12 @@ function sassFunc() {
 ***************************/
 function htmlFunc() {
     return gulp.src(path.src.html)
-    .pipe(include({
-        prefix: '@',
-        basepath: '@file'
-    }))
-    .pipe(gulp.dest(distFolder + '/'))
-    .pipe(browserSync.stream());
+        .pipe(include({
+            prefix: '@',
+            basepath: '@file'
+        }))
+        .pipe(gulp.dest(distFolder + '/'))
+        .pipe(browserSync.stream());
 }
 
 /***************************
@@ -129,14 +140,14 @@ function htmlFunc() {
 ***************************/
 function imgFunc() {
     return gulp.src(path.src.img)
-    .pipe(cache(imagemin({
-        progressive: true,
-        svgoPlugins: [{removeViewBox: false}],
-        interlaced: true,
-        optimizationLevel: 3
-    })))
-    .pipe(gulp.dest(path.dist.img))
-    .pipe(browserSync.stream());
+        .pipe(cache(imagemin({
+            progressive: true,
+            svgoPlugins: [{removeViewBox: false}],
+            interlaced: true,
+            optimizationLevel: 3
+        })))
+        .pipe(gulp.dest(path.dist.img))
+        .pipe(browserSync.stream());
 }
 
 /***************************
@@ -144,8 +155,8 @@ function imgFunc() {
 ***************************/
 function fontsFunc() {
     return gulp.src(path.src.fonts)
-    .pipe(gulp.dest(path.dist.fonts))
-    .pipe(browserSync.stream());
+        .pipe(gulp.dest(path.dist.fonts))
+        .pipe(browserSync.stream());
 }
 
 /***************************
@@ -154,8 +165,8 @@ function fontsFunc() {
 function watchFunc() {
     gulp.watch(path.src.inc, gulp.parallel( htmlFunc ));
     gulp.watch(path.src.sass, gulp.parallel( sassFunc ));
-    gulp.watch(path.src.js, gulp.parallel(jsFunc));
-    gulp.watch(path.src.img, gulp.parallel(imgFunc));
+    gulp.watch(path.src.js, gulp.parallel( jsFunc ));
+    gulp.watch(path.src.img, gulp.parallel( imgFunc ));
 }
 
 /***************************
